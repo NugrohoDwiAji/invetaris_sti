@@ -66,7 +66,7 @@ const CardAlat = ({ title, unit, tahun, img, link, id, jenis }) => {
             canEdit ? "flex" : "hidden"
           } gap-2 mt-2 relative bottom-0 `}
         >
-          <Button onClick={() => handleUpdate()}>Update</Button>
+         
           <Button onClick={() => handleDelete()}>Delete</Button>
         </div>
       </div>

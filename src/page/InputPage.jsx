@@ -9,6 +9,7 @@ import { inputBarang } from "../services/barang.services";
 
 const InputPage = () => {
   const [response, setresponse] = useState()
+  const [message, setmessage] = useState()
   const [preview, setpreview] = useState("");
   const [dataBarang, setdataBarang] = useState({
   nama:"",
@@ -40,20 +41,20 @@ const InputPage = () => {
       file:file
     }))
 };
-
 const handleSubmit = ()=>{
-  if (dataBarang.file) {
+  if (!dataBarang.file) {
+    setmessage("Image harus terisi")
     
   } else {
+    console.log(dataBarang)
+    inputBarang(dataBarang,(res)=>{
+      setresponse(res.message)
+    })
+    setTimeout(() => {
+      window.location.reload()
+    }, 1500);
     
   }
-  console.log(dataBarang)
-  inputBarang(dataBarang,(res)=>{
-    setresponse(res.message)
-  })
-  setTimeout(() => {
-    window.location.reload()
-  }, 1500);
 }
 
   return (
@@ -150,6 +151,7 @@ const handleSubmit = ()=>{
             hidden={preview ? false: true}
             
           />
+            <h1 className="text-red-500 text-sm">{message}</h1>
         </div>
 
         <div className="flex gap-5">
@@ -157,9 +159,10 @@ const handleSubmit = ()=>{
         <Button onClick={handleSubmit}>Create</Button>
         </div>
       </form>
-      <div className="absolute top-44 bg-white">
+      <div className="absolute top-80 bg-white">
       <h1 className="text-3xl text-green-400 p-4">{response}</h1>
       </div>
+
     </div>
   );
 };
